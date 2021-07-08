@@ -35,16 +35,6 @@ namespace MVCScaffolding2
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddRoles<IdentityRole>()
-            //    ;
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.Cookie.Name = "IdentityKoekje";
-                config.LoginPath = "/Home/Login";
-                config.AccessDeniedPath = "/Home/Error";
-            });
             services.AddRazorPages();
         }
 
