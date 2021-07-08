@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace MVCScaffolding2.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: Boeks
         public async Task<IActionResult> Index()
         {
@@ -44,7 +45,7 @@ namespace MVCScaffolding2.Controllers
 
             return View(boek);
         }
-
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         // GET: Boeks/Create
         public IActionResult Create()
         {
@@ -54,6 +55,7 @@ namespace MVCScaffolding2.Controllers
         // POST: Boeks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Publisher,Auteur,AantalBlz,Taal,Genre,Genres")] BoekViewModel boekVM)
@@ -68,7 +70,7 @@ namespace MVCScaffolding2.Controllers
             }
             return View(boekVM);
         }
-
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         // GET: Boeks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -88,6 +90,7 @@ namespace MVCScaffolding2.Controllers
         // POST: Boeks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Publisher,Auteur,AantalBlz,Taal,Genre,Genres")] BoekViewModel boekVM)
@@ -124,7 +127,7 @@ namespace MVCScaffolding2.Controllers
             }
             return View(boekVM);
         }
-
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         // GET: Boeks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -144,6 +147,7 @@ namespace MVCScaffolding2.Controllers
         }
 
         // POST: Boeks/Delete/5
+        [Authorize(Roles = "Subscriber,Admin,SuperAdmin,Moderator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

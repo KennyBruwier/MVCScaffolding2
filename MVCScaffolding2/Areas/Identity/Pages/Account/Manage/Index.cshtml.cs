@@ -47,6 +47,8 @@ namespace MVCScaffolding2.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Lastname = user.Lastname,
+                Firstname = user.Firstname,
                 PhoneNumber = phoneNumber,
                 Straat = user.Straat,
                 HuisNr = user.HuisNr
@@ -78,7 +80,28 @@ namespace MVCScaffolding2.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
+            var firstname = Input.Firstname;
+            if (firstname != user.Firstname)
+            {
+                user.Firstname = firstname;
+                var firstnameResult = await _userManager.UpdateAsync(user);
+                if (!firstnameResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to set Firstname.";
+                    return RedirectToPage();
+                }
+            }
+            var lastname = Input.Lastname;
+            if (lastname != user.Lastname)
+            {
+                user.Lastname = lastname;
+                var lastnameResult = await _userManager.UpdateAsync(user);
+                if (!lastnameResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to set Lastname.";
+                    return RedirectToPage();
+                }
+            }
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {

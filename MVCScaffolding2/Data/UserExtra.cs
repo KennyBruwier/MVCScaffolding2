@@ -8,6 +8,14 @@ namespace MVCScaffolding2.Data
 {
     public class UserExtra
     {
+        [Required]
+        [MaxLength(40)]
+        [Display(Name = "Voornaam")]
+        public string Firstname { get; set; }
+        [Required]
+        [MaxLength(40)]
+        [Display(Name = "Achternaam")]
+        public string Lastname { get; set; }
         [Display(Name = "Straatnaam")]
         [MaxLength(100)]
         public string Straat { get; set; }
